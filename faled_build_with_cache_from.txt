@@ -1,0 +1,110 @@
+#1 [internal] load build definition from Dockerfile
+#1 sha256:4d37aa366bd43aeaf8c6e7f692cba567047576bdf31f770020948025e2c36efd
+#1 transferring dockerfile: 1.35kB done
+#1 DONE 0.0s
+
+#2 [internal] load .dockerignore
+#2 sha256:b7d96da251c3187987f574ba5a13db76bf18a4fe57366e64e8063ea8fb69a88b
+#2 transferring context: 50B done
+#2 DONE 0.0s
+
+#3 resolve image config for docker.io/docker/dockerfile:experimental
+#3 sha256:401713457b113a88eb75a6554117f00c1e53f1a15beec44e932157069ae9a9a3
+#3 ...
+
+#4 [auth] docker/dockerfile:pull token for registry-1.docker.io
+#4 sha256:ee9c0561608cb0867eedcecb93fccdb9585161306b443f370e01267afa2e7700
+#4 DONE 0.0s
+
+#3 resolve image config for docker.io/docker/dockerfile:experimental
+#3 sha256:401713457b113a88eb75a6554117f00c1e53f1a15beec44e932157069ae9a9a3
+#3 DONE 11.1s
+
+#5 docker-image://docker.io/docker/dockerfile:experimental@sha256:600e5c62eedff338b3f7a0850beb7c05866e0ef27b2d2e8c02aa468e78496ff5
+#5 sha256:5eb5c5fe835d3b1aad89bd43d1d83f5bf7274754ac5f0265ecef704687cb946d
+#5 resolve docker.io/docker/dockerfile:experimental@sha256:600e5c62eedff338b3f7a0850beb7c05866e0ef27b2d2e8c02aa468e78496ff5 done
+#5 sha256:b587adb6abfd8d6c87b1f649c2e924d53f148ae1c7f0ceaaded70b27b44dccb5 1.21kB / 1.21kB done
+#5 sha256:d7f0373ffb1d5ac3477b10ab7f91cba7c5df586c72e7e4a12649024efdc0d531 0B / 9.64MB 0.1s
+#5 sha256:600e5c62eedff338b3f7a0850beb7c05866e0ef27b2d2e8c02aa468e78496ff5 1.69kB / 1.69kB done
+#5 sha256:3c244c0c6fc9d6aa3ddb73af4264b3a23597523ac553294218c13735a2c6cf79 528B / 528B done
+#5 sha256:d7f0373ffb1d5ac3477b10ab7f91cba7c5df586c72e7e4a12649024efdc0d531 2.10MB / 9.64MB 0.4s
+#5 sha256:d7f0373ffb1d5ac3477b10ab7f91cba7c5df586c72e7e4a12649024efdc0d531 3.15MB / 9.64MB 0.5s
+#5 sha256:d7f0373ffb1d5ac3477b10ab7f91cba7c5df586c72e7e4a12649024efdc0d531 4.19MB / 9.64MB 0.6s
+#5 sha256:d7f0373ffb1d5ac3477b10ab7f91cba7c5df586c72e7e4a12649024efdc0d531 6.29MB / 9.64MB 0.7s
+#5 sha256:d7f0373ffb1d5ac3477b10ab7f91cba7c5df586c72e7e4a12649024efdc0d531 8.39MB / 9.64MB 0.9s
+#5 sha256:d7f0373ffb1d5ac3477b10ab7f91cba7c5df586c72e7e4a12649024efdc0d531 9.64MB / 9.64MB 1.0s done
+#5 extracting sha256:d7f0373ffb1d5ac3477b10ab7f91cba7c5df586c72e7e4a12649024efdc0d531
+#5 extracting sha256:d7f0373ffb1d5ac3477b10ab7f91cba7c5df586c72e7e4a12649024efdc0d531 0.2s done
+#5 DONE 1.3s
+
+#6 [internal] load metadata for ghcr.io/jhu-sheridan-libraries/idc-isle-dc/java:upstream-20200824-f8d1e8e-21-gd6658f1
+#6 sha256:097c077d724e1d5864b3cd4e0e12f336703867a82708c845aacbf5ac13b47928
+#6 DONE 1.1s
+
+#11 [internal] load build context
+#11 sha256:4614c275506ac7f833c232a4f0d8d9e08b8b75a2ad28f85b25db4f4c4584ece3
+#11 DONE 0.0s
+
+#7 [stage-0 1/5] FROM ghcr.io/jhu-sheridan-libraries/idc-isle-dc/java:upstream-20200824-f8d1e8e-21-gd6658f1@sha256:07c3a43ba98c7dde5c67398b28aa599261727490f2f3c6c76342f3a3c17ef656
+#7 sha256:a8947bc9b4a65366a2b10c33c9b8dbacfee010eeae30df51ecff40bc10055afe
+#7 DONE 0.0s
+
+#13 importing cache manifest from ghcr.io/jhu-sheridan-libraries/idc-isle-dc/tomcat:upstream-20200824-f8d1e8e-21-gd6658f1
+#13 sha256:48fe1ba7e11ede92e70b8fadb4e51a8612312152f386ed01acc0b0fa8676331b
+#13 DONE 0.7s
+
+#7 [stage-0 1/5] FROM ghcr.io/jhu-sheridan-libraries/idc-isle-dc/java:upstream-20200824-f8d1e8e-21-gd6658f1@sha256:07c3a43ba98c7dde5c67398b28aa599261727490f2f3c6c76342f3a3c17ef656
+#7 sha256:a8947bc9b4a65366a2b10c33c9b8dbacfee010eeae30df51ecff40bc10055afe
+#7 resolve ghcr.io/jhu-sheridan-libraries/idc-isle-dc/java:upstream-20200824-f8d1e8e-21-gd6658f1@sha256:07c3a43ba98c7dde5c67398b28aa599261727490f2f3c6c76342f3a3c17ef656 0.0s done
+#7 DONE 0.0s
+
+#11 [internal] load build context
+#11 sha256:4614c275506ac7f833c232a4f0d8d9e08b8b75a2ad28f85b25db4f4c4584ece3
+#11 transferring context: 9.42kB done
+#11 DONE 0.0s
+
+#10 [stage-0 4/5] WORKDIR /opt/tomcat
+#10 sha256:bd194f791d242e216a01fec89d1788d9872491f81a5d5d3adebd4b57aa5b0d24
+#10 CACHED
+
+#8 [stage-0 2/5] RUN --mount=id=downloads,type=cache,target=/opt/downloads     DOWNLOAD_CACHE_DIRECTORY="/opt/downloads" &&     TOMCAT_VERSION="9.0.41" &&     TOMCAT_FILE="apache-tomcat-${TOMCAT_VERSION}.tar.gz" &&     TOMCAT_URL="https://archive.apache.org/dist/tomcat/tomcat-9/v${TOMCAT_VERSION}/bin/${TOMCAT_FILE}" &&     TOMCAT_FILE_SHA256="6a5fc1f79f002f25480e3a50daa1fb16fdb2f0a969bc2f806c88bc550002cf71" &&     TOMCAT_SIG_SHA256="2bf8fe2b4a993b799a8ea6018bda46f05a00ba9931bf904c97b3e912e30d0b69" &&     download.sh --url "${TOMCAT_URL}" --sha256 "${TOMCAT_FILE_SHA256}" "${DOWNLOAD_CACHE_DIRECTORY}" &&     download.sh --url "${TOMCAT_URL}.asc" --sha256 "${TOMCAT_SIG_SHA256}" "${DOWNLOAD_CACHE_DIRECTORY}" &&     install-apache-service.sh         --name tomcat         --key "A9C5DF4D22E99998D9875A5110C01C5A2F6059E7"         --file "${DOWNLOAD_CACHE_DIRECTORY}/${TOMCAT_FILE}"         webapps/docs webapps/examples
+#8 sha256:07aa519a9ca0d866bc4a1e7df1cc5bdb8b3e4de7fa826b00ae6a6887e3822e74
+#8 CACHED
+
+#9 [stage-0 3/5] RUN --mount=type=cache,target=/var/cache/apk     --mount=type=cache,target=/etc/cache/apk     apk-install.sh nginx &&     cleanup.sh
+#9 sha256:96ff40dc9457f54b558f730c9b31460e8030b4798fa993ce75cb6f9a80c76ca6
+#9 CACHED
+
+#12 [stage-0 5/5] COPY rootfs /
+#12 sha256:9539b45b1d525fe161cce046157a7d3c518ffbbfb4ca7fa78c75b9a8f013ee43
+#12 pulling sha256:99e24a72800f2ffc95c389721cd094462e35ca28af65a04175a669c7fd7cb374
+#12 pulling sha256:801bfaa63ef2094d770c809815b9e2b9c1194728e5e754ef7bc764030e140cea
+#12 pulling sha256:4e61baf45ba389d5bdce9c3379f7bc6ba79695119424cb3b10ad42d3c8db6bdf
+#12 pulling sha256:4e61baf45ba389d5bdce9c3379f7bc6ba79695119424cb3b10ad42d3c8db6bdf 0.3s done
+#12 pulling sha256:eff56a1089603a226bda0f15b15e96ffd75d16e32ef7245ffefd12180030bf47
+#12 pulling sha256:eff56a1089603a226bda0f15b15e96ffd75d16e32ef7245ffefd12180030bf47 0.4s done
+#12 pulling sha256:3795a602b4fde4511c62a5feb57f2dbb50e8bae0459601e241a20e09077f74d2
+#12 pulling sha256:801bfaa63ef2094d770c809815b9e2b9c1194728e5e754ef7bc764030e140cea 0.9s done
+#12 pulling sha256:ffaebf9f6260ac5ab8ee77afc97a2f4ecea1efd2d2897731dd20c6eb7aca495c
+#12 pulling sha256:ffaebf9f6260ac5ab8ee77afc97a2f4ecea1efd2d2897731dd20c6eb7aca495c 0.3s done
+#12 pulling sha256:e20e9b9cf62a734abf1abd79fd1e0b939005dcdeb1b8e42db210774726cd36bb
+#12 pulling sha256:e20e9b9cf62a734abf1abd79fd1e0b939005dcdeb1b8e42db210774726cd36bb 2.6s done
+#12 pulling sha256:1fe52febb1628e17f5b78f295d125c872a5edb24816bf1fa9719402fab6cf9a9
+#12 pulling sha256:1fe52febb1628e17f5b78f295d125c872a5edb24816bf1fa9719402fab6cf9a9 0.4s done
+#12 pulling sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1
+#12 pulling sha256:99e24a72800f2ffc95c389721cd094462e35ca28af65a04175a669c7fd7cb374 4.4s done
+#12 pulling sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 0.2s done
+#12 pulling sha256:3795a602b4fde4511c62a5feb57f2dbb50e8bae0459601e241a20e09077f74d2 13.7s done
+#12 CACHED
+
+#14 exporting to image
+#14 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
+#14 exporting layers done
+#14 writing image sha256:b61b0abdc74054c43653a8c29b72e95bd0fa1d44f8bc5822f8205f5124a87a52 done
+#14 naming to docker.io/local/tomcat:bad done
+#14 DONE 0.0s
+
+#15 exporting cache
+#15 sha256:2700d4ef94dee473593c5c614b55b2dedcca7893909811a8f2b48291a1f581e4
+#15 preparing build cache for export done
+#15 DONE 0.0s
