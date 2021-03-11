@@ -14,14 +14,7 @@ However, the observed reality is that building from cache results in a corrupt i
 
 ## Quick start
 
-To build a good image, do:
-
-    docker system prune -af
-    docker build --progress=plain \
-      --build-arg BUILDKIT_INLINE_CACHE=1 \
-      --tag local/tomcat:good context
-
-To build a bad image, simply cache from `ghcr.io/jhu-sheridan-libraries/idc-isle-dc/tomcat:upstream-20200824-f8d1e8e-21-gd6658f1`:
+First, to build a corrupt image image, simply cache from `ghcr.io/jhu-sheridan-libraries/idc-isle-dc/tomcat:upstream-20200824-f8d1e8e-21-gd6658f1` as follows:
 
     docker system prune -af
     docker build --progress=plain \
@@ -29,17 +22,39 @@ To build a bad image, simply cache from `ghcr.io/jhu-sheridan-libraries/idc-isle
       --build-arg BUILDKIT_INLINE_CACHE=1 \
       --tag local/tomcat:bad context
 
-To pull the image, do:
+To verify it is bad, do:
+
+     docker run --entrypoint="/bin/ls" local/tomcat:bad /usr/local/bin/install-war-into-tomcat.sh
+
+You should see an error:
+
+    ls: /usr/local/bin/install-war-into-tomcat.sh: No such file or directory
+
+Building with `--cache-from` results in a corrupt image that does not have all the expected files.
+
+Now, pull the image we supposedly cached from:
 
     docker pull ghcr.io/jhu-sheridan-libraries/idc-isle-dc/tomcat:upstream-20200824-f8d1e8e-21-gd6658f1
 
-To test an image IMAGE_TAG (e.g. `local/tomcat:bad`) for completeness, do:
+Test for our file on this image, and notice that it succeeds:
 
-     docker run --entrypoint="/bin/ls" IMAGE_TAG \ 
-       /usr/local/bin/install-war-into-tomcat.sh
+     docker run --entrypoint="/bin/ls" ghcr.io/jhu-sheridan-libraries/idc-isle-dc/tomcat:upstream-20200824-f8d1e8e-21-gd6658f1 /usr/local/bin/install-war-into-tomcat.sh
+
+Finally, clear everything from Docker and build without pulling cached layers
+
+    docker system prune -af
+    docker build --progress=plain \
+      --build-arg BUILDKIT_INLINE_CACHE=1 \
+      --tag local/tomcat:good context
+
+This will take a little time to build.  If it fails due to some silly key server timeout, try again.  Now, look for our file:
+
+    docker run --entrypoint="/bin/ls" local/tomcat:good /usr/local/bin/install-war-into-tomcat.sh
+
+The file should be found.  Building without pulling an image for cached layers results in a good image.
 
 ## The Problem
-Using our image `IMAGE="ghcr.io/jhu-sheridan-libraries/idc-isle-dc/tomcat:upstream-20200824-f8d1e8e-21-gd6658f1"`
+Using our image `IMAGE="ghcr.io/jhu-sheridan-libraries/idc-isle-dc/tomcat:upstream-20200824-f8d1e8e-21-gd6658f1"`...
 
 Comparing the images that result from `docker pull ${IMAGE}` vs  `docker build --cache-from ${IMAGE} ...`, we observe that the `docker build --cache-from ${IMAGE}` image (which we tag as `local/tomcat:bad` above) does _not_ have the files from the last `COPY` statement in the Dockerfile.  The [build output](https://github.com/birkland/buildkit-error/blob/main/faled_build_with_cache_from.txt#L78-L98) suggests that the `COPY rootfs /` is `CACHED` (and it even looks like it is pulling in layers), but in resulting image, the layer is _empty_.  
 
