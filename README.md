@@ -39,13 +39,39 @@ To test an image IMAGE_TAG (e.g. `local/tomcat:bad`) for completeness, do:
        /usr/local/bin/install-war-into-tomcat.sh
 
 ## The Problem
+Using our image `IMAGE="ghcr.io/jhu-sheridan-libraries/idc-isle-dc/tomcat:upstream-20200824-f8d1e8e-21-gd6658f1"`
 
+Comparing the images that result from `docker pull ${IMAGE}` vs  `docker build --cache-from ${IMAGE} ...`, we observe that the `docker build --cache-from ${IMAGE}` image (which we tag as `local/tomcat:bad` above) does _not_ have the files from the last `COPY` statement in the Dockerfile.  The [build output](https://github.com/birkland/buildkit-error/blob/main/faled_build_with_cache_from.txt#L78-L98) suggests that the `COPY rootfs /` is `CACHED` (and it even looks like it is pulling in layers), but in resulting image, the layer is _empty_.  
+
+
+The first few lines of `docker history local:tomcat/bad` is revealing:
+```
+IMAGE          CREATED        CREATED BY                                      SIZE      COMMENT
+b61b0abdc740   5 weeks ago    COPY rootfs / # buildkit                        0B        buildkit.dockerfile.v0
+<missing>      5 weeks ago    EXPOSE map[8080/tcp:{}]                         0B        buildkit.dockerfile.v0
+<missing>      5 weeks ago    WORKDIR /opt/tomcat                             0B        buildkit.dockerfile.v0
+<missing>      5 weeks ago    RUN /bin/sh -c apk-install.sh nginx &&     c…   1.15MB    buildkit.dockerfile.v0
+```
+
+As you can see, the last layer, `COPY rootfs / # buildkit` is _empty_.
+
+Doing a pull (`docker pull ghcr.io/jhu-sheridan-libraries/idc-isle-dc/tomcat:upstream-20200824-f8d1e8e-21-gd6658f1`) reveals history that diverges in an unexplainable way:
+```
+IMAGE          CREATED        CREATED BY                                      SIZE      COMMENT
+2ea3401ac2fc   5 weeks ago    COPY rootfs / # buildkit                        7.65kB    buildkit.dockerfile.v0
+<missing>      5 weeks ago    EXPOSE map[8080/tcp:{}]                         0B        buildkit.dockerfile.v0
+<missing>      5 weeks ago    WORKDIR /opt/tomcat                             0B        buildkit.dockerfile.v0
+<missing>      5 weeks ago    RUN /bin/sh -c apk-install.sh nginx &&     c…   1.15MB    buildkit.dockerfile.v0
+```
+
+Notice the last COPY layer is 7.65kB in the pulled image, and 0B in the local corrupt image.
+
+Comparing JSON metadata from these two images saved via `docker save` (pulled vs corrupt local image via --cache-from build) reveals a divergent history even stranger.  The bold lines are differances:
 <table>
-<caption>Differences in histories between bad (<code>--cache-from</code> to pull in cache) and good (no cache)</caption>
 <thead>
 <tr>
-<td>Good (no cache) history</td>
-<td>Bad (--cache-from) history</td>
+<td>Pulled image history</td>
+<td>Corrupt build (--cache-from) history</td>
 </tr>
 </thead>
 <tbody>
@@ -64,7 +90,7 @@ To test an image IMAGE_TAG (e.g. `local/tomcat:bad`) for completeness, do:
             "empty_layer": true
         },
         {
-            "created": "2021-02-04T15:19:27.9352723Z",
+            <b>"created": "2021-02-04T15:19:27.9352723Z",</b>
             "created_by": "COPY rootfs / # buildkit",
             "comment": "buildkit.dockerfile.v0"
         }
@@ -94,3 +120,5 @@ To test an image IMAGE_TAG (e.g. `local/tomcat:bad`) for completeness, do:
 </tr>
 </tbody>
 </table>
+
+We actually see that history diverged from the `EXPOSE map[8080/tcp:{}]` step!  The timestamps for diverged steps differ by ~10ms.  This is utterly baffling.  Why, when building with `--cache-from ghcr.io/jhu-sheridan-libraries/idc-isle-dc/tomcat:upstream-20200824-f8d1e8e-21-gd6658f1` does the history of the locally built image diverge from the pulled image?
